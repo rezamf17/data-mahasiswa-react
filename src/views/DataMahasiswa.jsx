@@ -3,7 +3,7 @@ import React from 'react'
 const DataMahasiswa = () => {
     return(
         <>
-            <h2>Data Mahasiswa</h2>
+            <h3>Data Mahasiswa</h3>
         </>
     )
 }
