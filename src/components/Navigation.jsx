@@ -12,9 +12,12 @@ import {
     ListItemIcon,
     ListItemText
 } from '@mui/material'
-import DraftsIcon from '@mui/icons-material/Drafts';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
+import { Link } from 'react-router-dom'
+import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
+import PersonIcon from '@mui/icons-material/Person';
+import DashboardIcon from '@mui/icons-material/Dashboard';
 import ModeStandbyIcon from '@mui/icons-material/ModeStandby';
+import DataMahasiswa from '../views/DataMahasiswa';
 import { teal } from '@mui/material/colors';
 const Navigation = () => {
     const color = teal[700]
@@ -42,19 +45,27 @@ const Navigation = () => {
                     <hr />
                     <List>
                         <ListItem disablePadding>
-                            <ListItemButton>
+                            <ListItemButton component={Link} to='/' onClick={() => setDrawer(false)}>
                                 <ListItemIcon>
-                                    <InboxIcon />
+                                    <DashboardIcon />
                                 </ListItemIcon>
-                                <ListItemText primary="Inbox" />
+                                <ListItemText primary="Dashboard" />
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding >
+                            <ListItemButton component={Link} to='/data-mahasiswa' onClick={() => setDrawer(false)}>
+                                <ListItemIcon>
+                                    <PersonIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="Data Mahasiswa" />
                             </ListItemButton>
                         </ListItem>
                         <ListItem disablePadding>
-                            <ListItemButton>
+                            <ListItemButton onClick={() => setDrawer(false)}>
                                 <ListItemIcon>
-                                    <DraftsIcon />
+                                    <ConfirmationNumberIcon />
                                 </ListItemIcon>
-                                <ListItemText primary="Drafts" />
+                                <ListItemText primary="Data Nilai" />
                             </ListItemButton>
                         </ListItem>
                     </List>
