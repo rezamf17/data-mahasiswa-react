@@ -61,7 +61,7 @@ const Navigation = () => {
                             </ListItemButton>
                         </ListItem>
                         <ListItem disablePadding>
-                            <ListItemButton onClick={() => setDrawer(false)}>
+                            <ListItemButton component={Link} to='/data-nilai' onClick={() => setDrawer(false)}>
                                 <ListItemIcon>
                                     <ConfirmationNumberIcon />
                                 </ListItemIcon>

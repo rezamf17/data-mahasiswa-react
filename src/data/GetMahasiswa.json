@@ -1,0 +1,47 @@
+[
+    {
+        "nama" : "Anton Kusuma",
+        "jurusan" : "Teknik Industri",
+        "kelas" : "TI 20A"
+    },
+    {
+        "nama" : "Syafira",
+        "jurusan" : "Teknik Informatika",
+        "kelas" : "TIF 20A"
+    },
+    {
+        "nama" : "Admin Slot",
+        "jurusan" : "Desain Komunikasi Visual",
+        "kelas" : "DKV 20A"
+    },
+    {
+        "nama" : "Burhan Effect",
+        "jurusan" : "Teknik Kimia",
+        "kelas" : "TK 20A"
+    },
+    {
+        "nama" : "Via Vallen",
+        "jurusan" : "Desain Komunikasi Visual",
+        "kelas" : "DKV 20B"
+    },
+    {
+        "nama" : "Budi Sudarsono",
+        "jurusan" : "Teknik Mesin",
+        "kelas" : "TM 20C"
+    },
+    {
+        "nama" : "Udin Komarudin",
+        "jurusan" : "Teknik Informatika",
+        "kelas" : "TIF 20C"
+    },
+    {
+        "nama" : "Umi Khofifah",
+        "jurusan" : "Teknik Informatika",
+        "kelas" : "TIF 20B"
+    },
+    {
+        "nama" : "Niken Agustina",
+        "jurusan" : "Teknik Informatika",
+        "kelas" : "TIF 20A"
+    }
+]
