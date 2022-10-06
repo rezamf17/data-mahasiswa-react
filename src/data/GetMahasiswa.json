@@ -1,47 +1,65 @@
 [
     {
+        "id" : 1,
         "nama" : "Anton Kusuma",
         "jurusan" : "Teknik Industri",
-        "kelas" : "TI 20A"
+        "kelas" : "TI 20A",
+        "Alamat" : "Bandung"
     },
     {
+        "id" : 2,
         "nama" : "Syafira",
         "jurusan" : "Teknik Informatika",
-        "kelas" : "TIF 20A"
+        "kelas" : "TIF 20A",
+        "Alamat" : "Surabaya"
     },
     {
+        "id" : 3,
         "nama" : "Admin Slot",
         "jurusan" : "Desain Komunikasi Visual",
-        "kelas" : "DKV 20A"
+        "kelas" : "DKV 20A",
+        "Alamat" : "Bandung"
     },
     {
+        "id" : 4,
         "nama" : "Burhan Effect",
         "jurusan" : "Teknik Kimia",
-        "kelas" : "TK 20A"
+        "kelas" : "TK 20A",
+        "Alamat" : "Surabaya"
     },
     {
+        "id" : 5,
         "nama" : "Via Vallen",
         "jurusan" : "Desain Komunikasi Visual",
-        "kelas" : "DKV 20B"
+        "kelas" : "DKV 20B",
+        "Alamat" : "Bandung"
     },
     {
+        "id" : 6,
         "nama" : "Budi Sudarsono",
         "jurusan" : "Teknik Mesin",
-        "kelas" : "TM 20C"
+        "kelas" : "TM 20C",
+        "Alamat" : "Bandung"
     },
     {
+        "id" : 7,
         "nama" : "Udin Komarudin",
         "jurusan" : "Teknik Informatika",
-        "kelas" : "TIF 20C"
+        "kelas" : "TIF 20C",
+        "Alamat" : "Garut"
     },
     {
+        "id" : 8,
         "nama" : "Umi Khofifah",
         "jurusan" : "Teknik Informatika",
-        "kelas" : "TIF 20B"
+        "kelas" : "TIF 20B",
+        "Alamat" : "Semarang"
     },
     {
+        "id" : 9,
         "nama" : "Niken Agustina",
         "jurusan" : "Teknik Informatika",
-        "kelas" : "TIF 20A"
+        "kelas" : "TIF 20A",
+        "Alamat" : "Tasikmalaya"
     }
 ]
