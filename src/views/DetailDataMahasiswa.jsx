@@ -8,21 +8,37 @@ import {
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Link, useParams } from 'react-router-dom'
 import { getIdMahasiswa } from '../data/Helper.js'
+import ApiMahasiswa from '../data/dataMahasiswa'
 
 const DetailDataMahasiswa = () => {
     const backgroundBox = teal[50]
     const backgroundButton = teal[500]
     let params = useParams()
-    let [mahasiswa, setMahasiswa] = useState({})
-    useEffect(
-        () => {
-            let idDariParams = params.id 
-            // console.log()
-            const selectedMahasiswa = getIdMahasiswa(parseInt(idDariParams))
-            setMahasiswa(selectedMahasiswa)
-        },
-        []
-    )
+    let [mahasiswaId, setMahasiswaId] = useState({})
+    // useEffect(
+    //     () => {
+    //         let idDariParams = params.id 
+    //         console.log(params.id)
+    //         const selectedMahasiswa = getIdMahasiswa(parseInt(idDariParams))
+    //         setMahasiswa(selectedMahasiswa)
+    //     },
+    //     []
+    // )
+    useEffect(() => {
+        let idDariParams = params.id 
+        const fetchDataMahasiswa = async () => {
+            try {
+                const response = await ApiMahasiswa
+                    .get(`/mahasiswa/${idDariParams}`)
+                    setMahasiswaId(response.data)    
+                // console.log(response)        
+            } catch (error) {
+                console.log('error :', error)
+            }
+        }
+        fetchDataMahasiswa()
+    }, [])
+    // console.log(mahasiswaId.data.npm)
     return (
         <>
             <Box sx={{
@@ -46,18 +62,18 @@ const DetailDataMahasiswa = () => {
                 </Grid>
                 <Grid container spacing={2} sx={{marginBottom : "1em", marginTop : "2em"}}>
                     <Grid item xs={4}>
-                        Nama :
+                        NPM :
                     </Grid>
                     <Grid item xs={2}>
-                        {mahasiswa?.nama}
+                        {mahasiswaId?.data?.npm}
                     </Grid>
                 </Grid>
                 <Grid container spacing={2} sx={{marginBottom : "1em"}}>
                     <Grid item xs={4}>
-                        Kelas :
+                        Nama :
                     </Grid>
                     <Grid item xs={2}>
-                        {mahasiswa?.kelas}
+                        {mahasiswaId?.data?.nama}
                     </Grid>
                 </Grid>
                 <Grid container spacing={2} sx={{marginBottom : "1em"}}>
@@ -65,15 +81,15 @@ const DetailDataMahasiswa = () => {
                         Jurusan :
                     </Grid>
                     <Grid item xs={2}>
-                        {mahasiswa?.jurusan}
+                        {mahasiswaId?.data?.jurusan}
                     </Grid>
                 </Grid>
                 <Grid container spacing={2} sx={{marginBottom : "1em"}}>
                     <Grid item xs={4}>
-                        Alamat :
+                        Nomor Handphone :
                     </Grid>
                     <Grid item xs={2}>
-                        {mahasiswa?.Alamat}
+                        {mahasiswaId?.data?.nomorHandphone}
                     </Grid>
                 </Grid>
             </Box>
