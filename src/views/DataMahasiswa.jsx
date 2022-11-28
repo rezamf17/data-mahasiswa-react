@@ -12,7 +12,7 @@ import {
     IconButton
 } from '@mui/material'
 import {useNavigate, Link } from 'react-router-dom';
-import Mahasiswa from '../data/GetMahasiswa.json'
+// import Mahasiswa from '../data/GetMahasiswa.json'
 import FileCopyIcon from '@mui/icons-material/FileCopy';
 import ApiMahasiswa from '../data/dataMahasiswa'
 
@@ -23,21 +23,24 @@ const DataMahasiswa = () => {
             try {
                 const response = await ApiMahasiswa
                     .get("/mahasiswa")
-                setMovies(response.data.results)    
-                console.log(response)        
+                    setMahasiswa(response.data)    
+                // console.log(response)        
             } catch (error) {
                 console.log('error :', error)
             }
         }
         fetchDataMahasiswa()
     }, [])
+    // mahasiswa?.data?.map(item => {
+    //     return console.log(item)
+    // })
+    // console.log(mahasiswa.data)
     const backgroundBox = teal[50]
     let navigate = useNavigate()
     const handlerMahasiswaDetail = (event, item) => {
         event.preventDefault()
         navigate(`data-mahasiswa/${item.id}`)
     }
-
     return (
         <>
             <Box sx={{
@@ -70,7 +73,7 @@ const DataMahasiswa = () => {
                         </TableHead>
                         <TableBody>
                             {
-                                Mahasiswa.map((item, i) => {
+                                mahasiswa?.data?.map((item, i) => {
                                     return (
                                         <TableRow
                                             key={i}>
@@ -91,7 +94,8 @@ const DataMahasiswa = () => {
                                                     <FileCopyIcon />
                                                 </IconButton>
                                             </TableCell>
-                                        </TableRow>)
+                                        </TableRow>
+                                        )
                                 })
                             }
                         </TableBody>
