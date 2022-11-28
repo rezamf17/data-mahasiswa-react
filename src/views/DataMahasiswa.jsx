@@ -14,8 +14,23 @@ import {
 import {useNavigate, Link } from 'react-router-dom';
 import Mahasiswa from '../data/GetMahasiswa.json'
 import FileCopyIcon from '@mui/icons-material/FileCopy';
+import ApiMahasiswa from '../data/dataMahasiswa'
 
 const DataMahasiswa = () => {
+    const [mahasiswa, setMahasiswa] = useState([])
+    useEffect(() => {
+        const fetchDataMahasiswa = async () => {
+            try {
+                const response = await ApiMahasiswa
+                    .get("/mahasiswa")
+                setMovies(response.data.results)    
+                console.log(response)        
+            } catch (error) {
+                console.log('error :', error)
+            }
+        }
+        fetchDataMahasiswa()
+    }, [])
     const backgroundBox = teal[50]
     let navigate = useNavigate()
     const handlerMahasiswaDetail = (event, item) => {
