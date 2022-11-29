@@ -7,7 +7,7 @@ import {
 } from '@mui/material'
 import ApiMahasiswa from '../data/dataMahasiswa'
 
-const TambahDataMahasiswa = () => {
+const TambahDataMahasiswa = (props) => {
     const [nama, setNama] = useState('')
     const [npm, setNpm] = useState('')
     const [kelas, setKelas] = useState('')
@@ -16,19 +16,20 @@ const TambahDataMahasiswa = () => {
 
     const Submit = (e) => {
         e.preventDefault()
-            ApiMahasiswa
-                    .post("/mahasiswa", {
-                        "nama" : nama,
-                        "npm" : npm,
-                        "kelas" : kelas,
-                        "jurusan" : jurusan,
-                        "nomorHandphone" : nomorHandphone 
-                    }).then(res => {
-                        console.log(res)
-                    }).catch(err => {
-                        console.log(err)
-                    })
+            // ApiMahasiswa
+            //         .post("/mahasiswa", {
+            //             "nama" : nama,
+            //             "npm" : npm,
+            //             "kelas" : kelas,
+            //             "jurusan" : jurusan,
+            //             "nomorHandphone" : nomorHandphone 
+            //         }).then(res => {
+            //             console.log(res)
+            //         }).catch(err => {
+            //             console.log(err)
+            //         })
                     // setMahasiswa(response.data) 
+                props.data()
         console.log([
             {
                 "nama" : nama,

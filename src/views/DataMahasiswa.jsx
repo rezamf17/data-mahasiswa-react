@@ -13,7 +13,7 @@ import {
     Modal,
     Typography
 } from '@mui/material'
-import {useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
 import ApiMahasiswa from '../data/dataMahasiswa'
@@ -34,13 +34,13 @@ const DataMahasiswa = () => {
         borderRadius: '1em',
         boxShadow: 24,
         p: 4,
-      };
+    };
     useEffect(() => {
         const fetchDataMahasiswa = async () => {
             try {
                 const response = await ApiMahasiswa
                     .get("/mahasiswa")
-                    setMahasiswa(response.data)    
+                setMahasiswa(response.data)
                 // console.log(response)        
             } catch (error) {
                 console.log('error :', error)
@@ -59,8 +59,8 @@ const DataMahasiswa = () => {
                 height: '35em'
             }}>
                 <h3>Data Mahasiswa</h3>
-                <Button variant="contained" startIcon={<AddIcon />} sx={{marginBottom : '1em'}}
-                onClick={handleOpen}>
+                <Button variant="contained" startIcon={<AddIcon />} sx={{ marginBottom: '1em' }}
+                    onClick={handleOpen}>
                     Tambah
                 </Button>
                 <Modal
@@ -70,10 +70,10 @@ const DataMahasiswa = () => {
                     aria-describedby="modal-modal-description"
                 >
                     <Box sx={style}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Tambah Data Mahasiswa
-                    </Typography>
-                    <TambahDataMahasiswa />
+                        <Typography id="modal-modal-title" variant="h6" component="h2">
+                            Tambah Data Mahasiswa
+                        </Typography>
+                        <TambahDataMahasiswa data={handleClose} />
                     </Box>
                 </Modal>
                 <TableContainer component={Paper} sx={{
@@ -121,7 +121,7 @@ const DataMahasiswa = () => {
                                                 </IconButton>
                                             </TableCell>
                                         </TableRow>
-                                        )
+                                    )
                                 })
                             }
                         </TableBody>
