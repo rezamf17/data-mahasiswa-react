@@ -78,6 +78,14 @@ const DetailDataMahasiswa = () => {
                 </Grid>
                 <Grid container spacing={2} sx={{marginBottom : "1em"}}>
                     <Grid item xs={4}>
+                        Kelas :
+                    </Grid>
+                    <Grid item xs={2}>
+                        {mahasiswaId?.data?.kelas}
+                    </Grid>
+                </Grid>
+                <Grid container spacing={2} sx={{marginBottom : "1em"}}>
+                    <Grid item xs={4}>
                         Jurusan :
                     </Grid>
                     <Grid item xs={2}>
