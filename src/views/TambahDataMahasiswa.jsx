@@ -1,18 +1,43 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import {
     Typography,
     Grid,
     TextField,
     Button
 } from '@mui/material'
+import ApiMahasiswa from '../data/dataMahasiswa'
+
 const TambahDataMahasiswa = () => {
     const [nama, setNama] = useState('')
     const [npm, setNpm] = useState('')
     const [kelas, setKelas] = useState('')
+    const [jurusan, setJurusan] = useState('')
+    const [nomorHandphone, setNomorHandphone] = useState('')
 
-    const submit = (e) => {
+    const Submit = (e) => {
         e.preventDefault()
-        console.log([nama, npm, kelas])
+            ApiMahasiswa
+                    .post("/mahasiswa", {
+                        "nama" : nama,
+                        "npm" : npm,
+                        "kelas" : kelas,
+                        "jurusan" : jurusan,
+                        "nomorHandphone" : nomorHandphone 
+                    }).then(res => {
+                        console.log(res)
+                    }).catch(err => {
+                        console.log(err)
+                    })
+                    // setMahasiswa(response.data) 
+        console.log([
+            {
+                "nama" : nama,
+                "npm" : npm,
+                "kelas" : kelas,
+                "jurusan" : jurusan,
+                "nomorHandphone" : nomorHandphone 
+            }
+        ])
     }
     return(
         <>
@@ -53,7 +78,7 @@ const TambahDataMahasiswa = () => {
                 </Typography>
             </Grid>
             <Grid item xs={8}>
-                <TextField id="outlined-search" label="Jurusan" type="search" />
+                <TextField value={jurusan} onInput={ e=>setJurusan(e.target.value)} label="Jurusan" type="search" />
             </Grid>
         </Grid>
         <Grid container spacing={2} sx={{marginTop : '1em'}}>
@@ -63,7 +88,7 @@ const TambahDataMahasiswa = () => {
                 </Typography>
             </Grid>
             <Grid item xs={8}>
-                <TextField id="outlined-search" label="Nomor Handphone" type="search" />
+                <TextField value={nomorHandphone} onInput={ e=>setNomorHandphone(e.target.value)} label="Nomor Handphone" type="search" />
             </Grid>
         </Grid>
         <Grid container spacing={2} sx={{marginTop : '1em'}}>
@@ -71,7 +96,7 @@ const TambahDataMahasiswa = () => {
             
             </Grid>
             <Grid item xs={8}>
-                <Button variant="contained" onClick={submit}>Simpan</Button>
+                <Button variant="contained" onClick={Submit}>Simpan</Button>
             </Grid>
         </Grid>
         
