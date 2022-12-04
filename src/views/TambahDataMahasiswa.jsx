@@ -16,29 +16,31 @@ const TambahDataMahasiswa = (props) => {
 
     const Submit = (e) => {
         e.preventDefault()
-            // ApiMahasiswa
-            //         .post("/mahasiswa", {
-            //             "nama" : nama,
-            //             "npm" : npm,
-            //             "kelas" : kelas,
-            //             "jurusan" : jurusan,
-            //             "nomorHandphone" : nomorHandphone 
-            //         }).then(res => {
-            //             console.log(res)
-            //         }).catch(err => {
-            //             console.log(err)
-            //         })
+            ApiMahasiswa
+                    .post("/mahasiswa", {
+                        "nama" : nama,
+                        "npm" : npm,
+                        "kelas" : kelas,
+                        "jurusan" : jurusan,
+                        "nomorHandphone" : nomorHandphone 
+                    }).then(res => {
+                        console.log(res)
+                    }).catch(err => {
+                        console.log(err)
+                    })
                     // setMahasiswa(response.data) 
                 props.data()
-        console.log([
-            {
-                "nama" : nama,
-                "npm" : npm,
-                "kelas" : kelas,
-                "jurusan" : jurusan,
-                "nomorHandphone" : nomorHandphone 
-            }
-        ])
+                props.snackbarOpen()
+                props.fetch()
+        // console.log([
+        //     {
+        //         "nama" : nama,
+        //         "npm" : npm,
+        //         "kelas" : kelas,
+        //         "jurusan" : jurusan,
+        //         "nomorHandphone" : nomorHandphone 
+        //     }
+        // ])
     }
     return(
         <>

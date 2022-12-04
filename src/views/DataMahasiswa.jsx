@@ -11,18 +11,35 @@ import {
     Paper,
     IconButton,
     Modal,
-    Typography
+    Typography,
+    Snackbar,
 } from '@mui/material'
 import { useNavigate, Link } from 'react-router-dom';
+import MuiAlert from '@mui/material/Alert';
 import AddIcon from '@mui/icons-material/Add';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 import ApiMahasiswa from '../data/dataMahasiswa'
 import TambahDataMahasiswa from './TambahDataMahasiswa';
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
 const DataMahasiswa = () => {
     const [mahasiswa, setMahasiswa] = useState([])
     const [open, setOpen] = useState(false);
+    const [snack, setSnack] = useState(false)
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const snackbarOpen = () => setSnack(true);
+    const snackbarClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setSnack(false);
+    }
     const style = {
         position: 'absolute',
         top: '50%',
@@ -73,7 +90,7 @@ const DataMahasiswa = () => {
                         <Typography id="modal-modal-title" variant="h6" component="h2">
                             Tambah Data Mahasiswa
                         </Typography>
-                        <TambahDataMahasiswa data={handleClose} />
+                        <TambahDataMahasiswa data={handleClose} snackbarOpen={snackbarOpen} fetch={useEffect}/>
                     </Box>
                 </Modal>
                 <TableContainer component={Paper} sx={{
@@ -119,6 +136,12 @@ const DataMahasiswa = () => {
                                                 <IconButton component={Link} to={`/data-mahasiswa/${item.id}`}>
                                                     <FileCopyIcon />
                                                 </IconButton>
+                                                <IconButton component={Link} to={`/data-mahasiswa/${item.id}`}>
+                                                    <EditIcon />
+                                                </IconButton>
+                                                <IconButton component={Link} to={`/data-mahasiswa/${item.id}`}>
+                                                    <DeleteIcon />
+                                                </IconButton>
                                             </TableCell>
                                         </TableRow>
                                     )
@@ -128,6 +151,17 @@ const DataMahasiswa = () => {
                     </Table>
                 </TableContainer>
             </Box>
+            <Button onClick={snackbarOpen}> snackbar</Button>
+            <Snackbar
+                open={snack}
+                autoHideDuration={2000}
+                onClose={snackbarClose}
+                message="Note archived"
+            >
+                <Alert onClose={snackbarClose} severity="success" sx={{ width: '100%' }}>
+                    Data Berhasil Ditambahkan!
+                </Alert>
+            </Snackbar>
         </>
     )
 }
