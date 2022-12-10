@@ -22,6 +22,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ApiMahasiswa from '../data/dataMahasiswa'
 import TambahDataMahasiswa from './TambahDataMahasiswa';
+import EditDataMahasiswa from './EditDataMahasiswa';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -29,9 +30,20 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 const DataMahasiswa = () => {
     const [mahasiswa, setMahasiswa] = useState([])
+    const [dataEdit, setDataEdit] = useState([])
     const [open, setOpen] = useState(false);
+    const [modalEditOpen, setModalEditOpen] = useState(false);
     const [snack, setSnack] = useState(false)
+    // const [owner, setOwner] = useState(null);
     const handleOpen = () => setOpen(true);
+    const handleModalEditOpen = (id) => {
+        // setOwner(id)
+        setModalEditOpen(true)
+        console.log(id)
+        setDataEdit(id)
+    };
+    // console.log('ini data edit', dataEdit)
+    const handleModalEditClose = () => setModalEditOpen(false);
     const handleClose = () => setOpen(false);
     const snackbarOpen = () => setSnack(true);
     const snackbarClose = (event, reason) => {
@@ -93,6 +105,24 @@ const DataMahasiswa = () => {
                         <TambahDataMahasiswa data={handleClose} snackbarOpen={snackbarOpen} fetch={useEffect}/>
                     </Box>
                 </Modal>
+                <Modal
+                    open={modalEditOpen}
+                    onClose={handleModalEditClose}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                >
+                    <Box sx={style}>
+                        <Typography id="modal-modal-title" variant="h6" component="h2">
+                            Edit Data Mahasiswa
+                        </Typography>
+                        <EditDataMahasiswa 
+                        data={handleModalEditClose} 
+                        snackbarOpen={snackbarOpen} 
+                        fetch={useEffect}
+                        edit={dataEdit}
+                        />
+                    </Box>
+                </Modal>
                 <TableContainer component={Paper} sx={{
                     width: '60%',
                     alignItems: 'center',
@@ -136,7 +166,7 @@ const DataMahasiswa = () => {
                                                 <IconButton component={Link} to={`/data-mahasiswa/${item.id}`}>
                                                     <FileCopyIcon />
                                                 </IconButton>
-                                                <IconButton component={Link} to={`/data-mahasiswa/${item.id}`}>
+                                                <IconButton onClick={() => handleModalEditOpen(item)}>
                                                     <EditIcon />
                                                 </IconButton>
                                                 <IconButton component={Link} to={`/data-mahasiswa/${item.id}`}>
@@ -159,7 +189,7 @@ const DataMahasiswa = () => {
                 message="Note archived"
             >
                 <Alert onClose={snackbarClose} severity="success" sx={{ width: '100%' }}>
-                    Data Berhasil Ditambahkan!
+                    Data Berhasil Disimpan!
                 </Alert>
             </Snackbar>
         </>
