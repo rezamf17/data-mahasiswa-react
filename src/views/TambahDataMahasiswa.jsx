@@ -25,6 +25,7 @@ const TambahDataMahasiswa = (props) => {
                         "nomorHandphone" : nomorHandphone 
                     }).then(res => {
                         console.log(res)
+                        props.get()
                     }).catch(err => {
                         console.log(err)
                     })

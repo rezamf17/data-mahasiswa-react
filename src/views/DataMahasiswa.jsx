@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { Box, Button } from '@mui/material'
 import { teal } from '@mui/material/colors'
 import {
@@ -13,6 +13,11 @@ import {
     Modal,
     Typography,
     Snackbar,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogContentText,
+    DialogActions  
 } from '@mui/material'
 import { useNavigate, Link } from 'react-router-dom';
 import MuiAlert from '@mui/material/Alert';
@@ -31,26 +36,63 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 const DataMahasiswa = () => {
     const [mahasiswa, setMahasiswa] = useState([])
     const [dataEdit, setDataEdit] = useState([])
+    const [dataDelete, setDataDelete] = useState([])
     const [open, setOpen] = useState(false);
     const [modalEditOpen, setModalEditOpen] = useState(false);
+    const [dialogDeleteOpen, setDialogDeleteOpen] = useState(false);
     const [snack, setSnack] = useState(false)
+    const [snackDelete, setSnackDelete] = useState(false)
     // const [owner, setOwner] = useState(null);
     const handleOpen = () => setOpen(true);
+    const handleDialogDeleteOpen = (id) => {
+        // console.log(id)
+        setDialogDeleteOpen(true)
+        setDataDelete(id)
+    };
+    const handleDialogDeleteClose = () => setDialogDeleteOpen(false);
     const handleModalEditOpen = (id) => {
         // setOwner(id)
         setModalEditOpen(true)
         console.log(id)
         setDataEdit(id)
     };
+    const submitDeleteData = (e) => {
+        e.preventDefault()
+        ApiMahasiswa
+                .delete(`/mahasiswa/${dataDelete.id}`, {
+                    "nama" : dataDelete.nama,
+                    "npm" : dataDelete.npm,
+                    "kelas" : dataDelete.kelas,
+                    "jurusan" : dataDelete.jurusan,
+                    "nomorHandphone" : dataDelete.nomorHandphone 
+                }).then(res => {
+                    console.log(res)
+                    getAllMahasiswa()
+                }).catch(err => {
+                    console.log(err)
+                })
+        snackbarDeleteOpen()
+        setDialogDeleteOpen(false)
+        // console.log('inidata delete',dataDelete)
+    }
     // console.log('ini data edit', dataEdit)
     const handleModalEditClose = () => setModalEditOpen(false);
-    const handleClose = () => setOpen(false);
+    const handleClose = () => {
+        setOpen(false)
+    };
     const snackbarOpen = () => setSnack(true);
+    const snackbarDeleteOpen = () => setSnackDelete(true);
     const snackbarClose = (event, reason) => {
         if (reason === 'clickaway') {
             return;
         }
         setSnack(false);
+    }
+    const snackbarCloseDelete = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setSnackDelete(false);
     }
     const style = {
         position: 'absolute',
@@ -64,18 +106,27 @@ const DataMahasiswa = () => {
         boxShadow: 24,
         p: 4,
     };
-    useEffect(() => {
-        const fetchDataMahasiswa = async () => {
-            try {
-                const response = await ApiMahasiswa
-                    .get("/mahasiswa")
-                setMahasiswa(response.data)
-                // console.log(response)        
-            } catch (error) {
-                console.log('error :', error)
-            }
+    const getAllMahasiswa =  async () => {
+        try {
+            const res = await ApiMahasiswa.get("/mahasiswa")
+            setMahasiswa(res.data)
+        } catch (error) {
+            console.log('error :', error)
         }
-        fetchDataMahasiswa()
+    }
+    useEffect(() => {
+        // const fetchDataMahasiswa = async () => {
+        //     try {
+        //         const response = await ApiMahasiswa
+        //             .get("/mahasiswa")
+        //         setMahasiswa(response.data)
+        //         // console.log(response)        
+        //     } catch (error) {
+        //         console.log('error :', error)
+        //     }
+        // }
+        // fetchDataMahasiswa()
+        getAllMahasiswa()
     }, [])
     const backgroundBox = teal[50]
     // let navigate = useNavigate()
@@ -102,7 +153,11 @@ const DataMahasiswa = () => {
                         <Typography id="modal-modal-title" variant="h6" component="h2">
                             Tambah Data Mahasiswa
                         </Typography>
-                        <TambahDataMahasiswa data={handleClose} snackbarOpen={snackbarOpen} fetch={useEffect}/>
+                        <TambahDataMahasiswa 
+                            data={handleClose} 
+                            snackbarOpen={snackbarOpen} 
+                            fetch={useEffect} 
+                            get={getAllMahasiswa}/>
                     </Box>
                 </Modal>
                 <Modal
@@ -115,14 +170,36 @@ const DataMahasiswa = () => {
                         <Typography id="modal-modal-title" variant="h6" component="h2">
                             Edit Data Mahasiswa
                         </Typography>
-                        <EditDataMahasiswa 
-                        data={handleModalEditClose} 
-                        snackbarOpen={snackbarOpen} 
-                        fetch={useEffect}
-                        edit={dataEdit}
+                        <EditDataMahasiswa
+                            data={handleModalEditClose}
+                            snackbarOpen={snackbarOpen}
+                            fetch={useEffect}
+                            edit={dataEdit}
                         />
                     </Box>
                 </Modal>
+
+                <Dialog
+                    open={dialogDeleteOpen}
+                    onClose={handleDialogDeleteClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    <DialogTitle id="alert-dialog-title">
+                        {"Hapus Data Mahasiswa"}
+                    </DialogTitle>
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                            Yakin ingin menghapus data mahasiswa {dataDelete.nama}?
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleDialogDeleteClose}>Tidak</Button>
+                        <Button onClick={submitDeleteData} autoFocus>
+                            Ya
+                        </Button>
+                    </DialogActions>
+                </Dialog>
                 <TableContainer component={Paper} sx={{
                     width: '60%',
                     alignItems: 'center',
@@ -135,6 +212,7 @@ const DataMahasiswa = () => {
                     <Table aria-label="simple table">
                         <TableHead sx={{
                             backgroundColor: teal[300],
+                            fontWeight: 'bold'
                         }}>
                             <TableRow>
                                 <TableCell>No</TableCell>
@@ -169,7 +247,7 @@ const DataMahasiswa = () => {
                                                 <IconButton onClick={() => handleModalEditOpen(item)}>
                                                     <EditIcon />
                                                 </IconButton>
-                                                <IconButton component={Link} to={`/data-mahasiswa/${item.id}`}>
+                                                <IconButton onClick={() => handleDialogDeleteOpen(item)}>
                                                     <DeleteIcon />
                                                 </IconButton>
                                             </TableCell>
@@ -181,7 +259,7 @@ const DataMahasiswa = () => {
                     </Table>
                 </TableContainer>
             </Box>
-            <Button onClick={snackbarOpen}> snackbar</Button>
+            <Button onClick={snackbarDeleteOpen}> snackbar</Button>
             <Snackbar
                 open={snack}
                 autoHideDuration={2000}
@@ -190,6 +268,16 @@ const DataMahasiswa = () => {
             >
                 <Alert onClose={snackbarClose} severity="success" sx={{ width: '100%' }}>
                     Data Berhasil Disimpan!
+                </Alert>
+            </Snackbar>
+            <Snackbar
+                open={snackDelete}
+                autoHideDuration={2000}
+                onClose={snackbarCloseDelete}
+                message="Note archived"
+            >
+                <Alert onClose={snackbarCloseDelete} severity="success" sx={{ width: '100%' }}>
+                    Data Berhasil Dihapus!
                 </Alert>
             </Snackbar>
         </>
